@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java script</title>
+</head>
+<body>
+    <h1>Raiz Quadrada</h1>
+
+    <button onclick="raiz25()">Raiz de 25</button>
+    <br><br>
+
+    <button onclick="raiz36()">Raiz de 36</button>
+    <br><br>
+
+    <button onclick="raiz49()">Raiz de 49</button>
+    <br><br>
+
+    <div id="resultadoRaiz"></div>
+
+    <hr>
+
+    <h1>Escrevendo na div</h1>
+
+    <button onclick="escreveDiv()">Escrever</button>
+
+    <div id="resultadoDiv"></div>
+
+    <hr>
+
+    <h1>Escrevndo texto Dinamico</h1>
+
+    <button onclick="textoDinamico()">Escrever</button>
+
+    <div id="resultadoTexto"></div>
+
+    <hr>
+
+    <h1>Desafio</h1>
+
+    <button onclick="escreverNumeros()">Escrever Numeros</button>
+    <div id="resultadoNumeros"></div>
+
+    <script>
+
+        function raiz25(){
+            document.getElementByld("resultadoRaiz").innerHTML=Math.sqrt(25);
+        }
+
+         function raiz36(){
+            document.getElementByld("resultadoRaiz").innerHTML=Math.sqrt(36);
+        }
+
+         function raiz49(){
+            document.getElementByld("resultadoRaiz").innerHTML=Math.sqrt(49);
+        }
+
+        function escreveDiv(){
+            document.getElementByld("resultadoDiv").innerHTML="Texto escrito dentro da div";
+        }
+
+        function textoDinamico(){
+            let texto = prompt("Digite um texto");
+
+            document.getElementById("resultadoTexto").innerHTML = texto;
+        }
+
+        function escreverNumeros(){
+            let n=prompt("Digite um Numero");
+            n = Number(n);
+            let resultado = "";
+            for (let i = 1; i <= n; i++) {
+                resultado += i + "<br>";
+            }
+        document.getElementById("resultadoNumeros").innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
