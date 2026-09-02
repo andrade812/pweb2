@@ -77,5 +77,28 @@
         document.getElementById("resultadoNumeros").innerHTML = resultado;
         }
     </script>
+    <h1>Raiz Quadrada de N</h1>
+    <label for="numero">Digite um número:</label>
+    <input type="number" id="numero">
+    <button onclick="raizdeN()">Raiz de N</button>
+    <p id="resultado"></p>
+    <script>
+        function raizdeN() {
+            // Recupera o valor digitado
+            let n = document.getElementById("numero").value;
+            // Converte para número inteiro
+            n = parseInt(n);
+            // Verifica se o número é válido e maior que zero
+            if (isNaN(n) || n <= 0) {
+                alert("Digite um número válido maior que zero!");
+                return;
+            }
+            // Calcula a raiz quadrada
+            let raiz = Math.sqrt(n);
+            // Exibe o resultado
+            document.getElementById("resultado").innerHTML =
+                "A raiz quadrada de " + n + " é " + raiz;
+        }
+    </script>
 </body>
 </html>
