@@ -6,7 +6,8 @@
     <title>Document</title>
 
     <script>
-        let lingaugens = Array();
+        let linguagens = Array();
+        
         linguagens[0] = 'Dart';
         lingaugens[1] = 'PHP';
         lingaugens[2] = 'Java';
@@ -17,10 +18,8 @@
 
         function mostrarListaLinguagens(){
             const container = document.getElementById('minhaDiv');
-
             for (var i = 0; i < linguagens.lenght; i++) {
                 var tag = '<h5>' + i + '-' + linguagens[i] + '</h5>';
-
                 container.innerHTML += tag;
             }
         }
