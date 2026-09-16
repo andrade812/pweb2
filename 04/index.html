@@ -48,6 +48,16 @@
             pilhaPessoas = [];
             mostrarLista();
         }
+
+        function inverterPilha(){
+            if(pilhaPessoas.length === 0){
+                alert('lista vazia');
+                return;
+            }
+
+            pilhaPessoas.reverse();
+            mostrarLista();
+        }
     </script>
 </head>
 <body>
@@ -61,6 +71,8 @@
     <button onclick="remover()">Remover</button>
 
     <button onclick="limparLista()">Limpar</button>
+
+    <button onclick="inverterPilha()">Inverter pilha</button>
 
     <div id="minhaDiv"></div>
 
