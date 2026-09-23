@@ -4,32 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
-<div class="container">
-    <h1>Lista de livros</h1>
-    <div class="formulario">
-        <label for="titulo">Titulo:</label>
-        <input type="text" id="titulo" placeholder="Digite o titulo do livro">
-        <label for="autor">Autor</label>
-        <input type="text" id="ano" placeholder="Digite o ano de publicação">
-
-        <button onclick="adicionarLivro()">Adicionar</button>
-
-    </div>
-
-    <hr>
-
-    <div class="botoes">
-        <button onclick="mostrarPosição()">Posição</button>
-        <button onclick="removerUltimo()">Remover ultimo</button>
-        <button onclick="limparLista()">Limpar</button>
-        <button onclick="inverterLista()">Inverter</button>
-    </div>
-
-    <div id="lista"></div>
-
-</div>
 
     <script>
 let livros = [];
@@ -97,5 +71,31 @@ atualizarLista();
 }
 </script>
 
+</head>
+<body>
+<div class="container">
+    <h1>Lista de livros</h1>
+    <div class="formulario">
+        <label for="titulo">Titulo:</label>
+        <input type="text" id="titulo" placeholder="Digite o titulo do livro">
+        <label for="autor">Autor</label>
+        <input type="text" id="ano" placeholder="Digite o ano de publicação">
+
+        <button onclick="adicionarLivro()">Adicionar</button>
+
+    </div>
+
+    <hr>
+
+    <div class="botoes">
+        <button onclick="mostrarPosição()">Posição</button>
+        <button onclick="removerUltimo()">Remover ultimo</button>
+        <button onclick="limparLista()">Limpar</button>
+        <button onclick="inverterLista()">Inverter</button>
+    </div>
+
+    <div id="lista"></div>
+
+</div>
 </body>
 </html>
