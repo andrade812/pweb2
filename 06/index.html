@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .titulo {
+            text-align: center;
+            font-weight: bold;
+            color: #0b5960;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .formulario {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .formulario label {
+            color: #174f65;
+            font-size: 14px;
+        }
+
+        .btn-salvar {
+            background-color: #6c757d;
+            border: none;
+        }
+
+        .btn-salvar:hover {
+            background-color: #5a6268;
+        }
+
+        .linha-botoes {
+            border-top: 1px solid #ddd;
+            margin-top: 15px;
+            padding-top: 13px;
+        }
+
+        table {
+            margin-top: 10px;
+        }
+
+        thead th {
+            background-color: #212529 !important;
+            color: white !important;
+        }
+
+        .btn-editar {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .btn-editar:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+        .btn-remover {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-remover:hover {
+            background-color: #bb2d3b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container">
+
+    <!-- Título -->
+    <h2 class="titulo">Cadastro de Cursos</h2>
+
+    <!-- Formulário -->
+    <div class="formulario">
+
+        <div class="row">
+
+            <!-- Nome -->
+            <div class="col-md-5">
+                <label for="nome" class="form-label">
+                    Nome do Curso
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    class="form-control"
+                    placeholder="Ex: Informática, Enfermagem, etc."
+                >
+            </div>
+
+            <!-- Regime -->
+            <div class="col-md-3">
+                <label for="regime" class="form-label">
+                    Regime
+                </label>
+
+                <select id="regime" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="Superior">Superior</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Técnico">Técnico</option>
+                </select>
+            </div>
+
+            <!-- Carga horária -->
+            <div class="col-md-3">
+                <label for="carga" class="form-label">
+                    Carga Horária (h)
+                </label>
+
+                <input
+                    type="number"
+                    id="carga"
+                    class="form-control"
+                    placeholder="Ex: 1200"
+                >
+            </div>
+
+        </div>
+
+        <!-- Botão salvar -->
+        <button
+            type="button"
+            class="btn btn-secondary btn-sm mt-3 btn-salvar"
+            onclick="salvarCurso()"
+        >
+            Salvar
+        </button>
+
+    </div>
+
+    <!-- Botões -->
+    <div class="linha-botoes">
+
+        <button
+            class="btn btn-danger btn-sm"
+            onclick="removerUltimo()"
+        >
+            Remover Último
+        </button>
+
+        <button
+            class="btn btn-danger btn-sm"
+            onclick="limparLista()"
+        >
+            Limpar Lista
+        </button>
+
+        <button
+            class="btn btn-secondary btn-sm"
+            onclick="inverterLista()"
+        >
+            Inverter
+        </button>
+
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Regime</th>
+                    <th>Carga Horária</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabelaCursos">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Lista inicial
+    let cursos = [
+        {
+            nome: "Administração",
+            regime: "Superior",
+            carga: 3000
+        },
+        {
+            nome: "Engenharia de Software",
+            regime: "Superior",
+            carga: 3600
+        },
+        {
+            nome: "Licenciatura em Computação",
+            regime: "Superior",
+            carga: 3200
+        },
+        {
+            nome: "Técnico em Eletrotécnica",
+            regime: "Médio",
+            carga: 1400
+        },
+        {
+            nome: "Técnico em Informática",
+            regime: "Médio",
+            carga: 1200
+        }
+    ];
+
+    // Índice do curso que está sendo editado
+    let indiceEdicao = -1;
+
+
+    // Exibir cursos
+    function atualizarTabela() {
+
+        const tabela = document.getElementById("tabelaCursos");
+
+        tabela.innerHTML = "";
+
+        cursos.forEach((curso, indice) => {
+
+            const linha = document.createElement("tr");
+
+            linha.innerHTML = `
+                <td>${indice}</td>
+
+                <td>${curso.nome}</td>
+
+                <td>${curso.regime}</td>
+
+                <td>${curso.carga} h</td>
+
+                <td>
+                    <button
+                        class="btn btn-sm btn-editar me-1"
+                        onclick="editarCurso(${indice})"
+                    >
+                        Editar
+                    </button>
+
+                    <button
+                        class="btn btn-sm btn-remover"
+                        onclick="removerCurso(${indice})"
+                    >
+                        Remover
+                    </button>
+                </td>
+            `;
+
+            tabela.appendChild(linha);
+        });
+    }
+
+
+    // Salvar curso
+    function salvarCurso() {
+
+        const nome = document.getElementById("nome").value.trim();
+        const regime = document.getElementById("regime").value;
+        const carga = document.getElementById("carga").value;
+
+        if (nome === "" || regime === "" || carga === "") {
+
+            alert("Preencha todos os campos!");
+
+            return;
+        }
+
+        const curso = {
+            nome: nome,
+            regime: regime,
+            carga: carga
+        };
+
+
+        // Editando
+        if (indiceEdicao !== -1) {
+
+            cursos[indiceEdicao] = curso;
+
+            indiceEdicao = -1;
+
+        }
+
+        // Adicionando novo
+        else {
+
+            cursos.push(curso);
+
+        }
+
+        limparCampos();
+
+        atualizarTabela();
+    }
+
+
+    // Editar curso
+    function editarCurso(indice) {
+
+        const curso = cursos[indice];
+
+        document.getElementById("nome").value = curso.nome;
+
+        document.getElementById("regime").value = curso.regime;
+
+        document.getElementById("carga").value = curso.carga;
+
+        indiceEdicao = indice;
+    }
+
+
+    // Remover curso
+    function removerCurso(indice) {
+
+        cursos.splice(indice, 1);
+
+        atualizarTabela();
+    }
+
+
+    // Remover último
+    function removerUltimo() {
+
+        if (cursos.length === 0) {
+            return;
+        }
+
+        cursos.pop();
+
+        atualizarTabela();
+    }
+
+
+    // Limpar lista
+    function limparLista() {
+
+        cursos = [];
+
+        atualizarTabela();
+    }
+
+
+    // Inverter lista
+    function inverterLista() {
+
+        cursos.reverse();
+
+        atualizarTabela();
+    }
+
+
+    // Limpar campos
+    function limparCampos() {
+
+        document.getElementById("nome").value = "";
+
+        document.getElementById("regime").value = "";
+
+        document.getElementById("carga").value = "";
+    }
+
+
+    // Carregar tabela inicialmente
+    atualizarTabela();
+
+</script>
+</body>
+</html>
